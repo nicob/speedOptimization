@@ -1,7 +1,7 @@
 <h2>Project04</h2>
 <h3>Page speed optimizations</h3>
 <h4>index.html</h4>
-<p>My project is hosted at http://www.beligiannis.net/cameron</p>
+<p>My project can be visited at http://www.beligiannis.net/cameron</p>
 <p>I made some changes that helped page render faster</p>
 <p>Running PageSpeed insights for index.html I get 98/100 for mobile & 99/100 for desktop</p>
 <h4>Changes I made at index.html</h4>
@@ -17,10 +17,10 @@
 <ol>
 <li>When recording the scroll event, saw that it was happening inside main.js by the function update positions at line 520. This function was causing a Forced layout event. What I did instead of calculating document.body.scrollTop / 1250 inside the for loop, I created, outside the for loop, a var phase1=document.body.scrollTop / 1250. Then I am using this phase1 var inside the for loop of the update positions function </li>
 <li>Regarding the pizza resize, when recording the resize event, I noticed that a  Forced layout event was created by a function called resizepizzas() at line 101 of pizza.html.  Back to main.js located function resizepizzas(). Inside there there is another function changeSliderLabel(). Inside this function there is a switch statement which in each case calls document.querySelector("#pizzaSize").  What I did to optimize this function was to create a var pizzaInnerValue=document.getElementById("pizzaSize") outside the switch statement. Then used this var inside the switch statement  . </li>
-<li>Another last optiomization I did inside pizza.html was to optimize the pizzeria.jpg. I resized the browser to check which is the biggest size I need for the responsive layout (it was 360x270) and then optimized this image to this size so the browser does not spend time resizing a bigger image.</li>
-<<<<<<< HEAD
+<li>Line471 Saving the pizzacontainer.length in a var called pizzaContainerLength so it does not get calculated inside the for ()</li>
+<li>Line 533 Created this line of code <br>
+items[i].style.left = items[i].basicLeft + 100 * Math.sin(phase1+(i%5)) + 'px' <br>
+and not crating the phase var at all.<br>
+</li>
+<li>Another last optimization I did inside pizza.html was to optimize the pizzeria.jpg. I resized the browser to check which is the biggest size I need for the responsive layout (it was 360x270) and then optimized this image to this size so the browser does not spend time resizing a bigger image.</li>
 </ol>
-=======
-</ol>
-=======
->>>>>>> origin/master
