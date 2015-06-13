@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <h2>Project04</h2>
 <h3>Page speed optimizations</h3>
 <h4>index.html</h4>
@@ -20,21 +19,3 @@
 <li>Regarding the pizza resize, when recording the resize event, I noticed that a  Forced layout event was created by a function called resizepizzas() at line 101 of pizza.html.  Back to main.js located function resizepizzas(). Inside there there is another function changeSliderLabel(). Inside this function there is a switch statement which in each case calls document.querySelector("#pizzaSize").  What I did to optimize this function was to create a var pizzaInnerValue=document.getElementById("pizzaSize") outside the switch statement. Then used this var inside the switch statement  . </li>
 <li>Another last optiomization I did inside pizza.html was to optimize the pizzeria.jpg. I resized the browser to check which is the biggest size I need for the responsive layout (it was 360x270) and then optimized this image to this size so the browser does not spend time resizing a bigger image.</li>
 </ol>
-=======
-<h4>Speed optimization project</h4>
-
-<h5>Optimizations</h5>
-<h5>index.html</h5>
-<ul>
-<li>
-Added a closing container div </div> because it was missing
-</li>
-<li>
-Added media="print" to the print.css link so it does not block render
-</li>
-
-<p>Tried to do all things that make a page load faster. Optimize images, minify files, remove comments, add media print to print styles etc.</p>
-<p>Although I tried to implement all spped optimizations I still think have an issue with main.js (but maybe not)</p>
-<p><em>You can see the optimized page online <a href="http://beligiannis.net/cameron/" target="_blank">here</a></em></p>
-<p>Thank you</p>
->>>>>>> origin/master
