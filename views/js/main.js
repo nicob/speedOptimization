@@ -404,15 +404,16 @@ var resizePizzas = function(size) {
 
   // Changes the value for the size of the pizza above the slider
   function changeSliderLabel(size) {
+	  var pizzaInnerValue=document.getElementById("pizzaSize");
     switch(size) {
       case "1":
-        document.querySelector("#pizzaSize").innerHTML = "Small";
+        pizzaInnerValue.innerHTML = "Small";
         return;
       case "2":
-        document.querySelector("#pizzaSize").innerHTML = "Medium";
+        pizzaInnerValue.innerHTML = "Medium";
         return;
       case "3":
-        document.querySelector("#pizzaSize").innerHTML = "Large";
+        pizzaInnerValue.innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -450,10 +451,27 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+	  
+	  switch(size){
+		  case "1":
+		  newWidth = 25;
+		  break;
+		  case "2":
+		  newWidth = 33.3;
+		  break;
+		  case "3":
+		  newWidth = 50;
+		  break;
+		  default:
+		  console.log("bug is sizeSwitcher");
+	  }
+	  
+	  //Created the pizzaContainer var in order to avoid repeating the selection of the randomPizzaContainer inside the for loop
+	  var pizzaContainer = document.getElementsByClassName("randomPizzaContainer");
+    for (var i = 0; i < pizzaContainer.length; i++) {
+      //var dx = determineDx(pizzaContainer[i], size);
+      //var newwidth = (pizzaContainer[i].offsetWidth + dx) + 'px';
+      pizzaContainer[i].style.width = newWidth + "%";
     }
   }
 
@@ -498,28 +516,31 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
 // Moves the sliding background pizzas based on scroll position
-
+//updatePositions creates Forced Synchronous Layout and it has to be fixed
 function updatePositions() {
+	//Noticed that this function causes a Forced synchronous layout
+	//so I am going to create a variable called phase1 that will hold the 
+	//document.body.scrollTop / 1250 so it is not getting calculated inside the for loop.
+	var phase1= document.body.scrollTop / 1250;
+	//seems to be wroking since it does not create the Forced synchronous layout :)
   frame++;
- // window.performance.mark("mark_start_frame");
+  window.performance.mark("mark_start_frame");
 
- // var items = document.querySelectorAll('.mover');
-  var items = document.getElementsByClassName('.mover');
-  var remainderAr=[1,2,3,4,5];
+  var items = document.getElementsByClassName('mover');
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + remainderAr[i]);
-	alert(phase);
+    var phase = Math.sin(phase1+(i%5));
+	//var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
-  /*window.performance.mark("mark_end_frame");
+  window.performance.mark("mark_end_frame");
   window.performance.measure("measure_frame_duration", "mark_start_frame", "mark_end_frame");
   if (frame % 10 === 0) {
     var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
     logAverageFrame(timesToUpdatePosition);
-  }*/
+  }
 }
 
 // runs updatePositions on scroll
@@ -529,7 +550,7 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 200; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
