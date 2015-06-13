@@ -20,7 +20,7 @@
 <li>Line471 Saving the pizzacontainer.length in a var called pizzaContainerLength so it does not get calculated inside the for ()</li>
 <li>Line 533 Created this line of code <br>
 items[i].style.left = items[i].basicLeft + 100 * Math.sin(phase1+(i%5)) + 'px' <br>
-and not crating the phase var at all.<br>
+and not creating the phase var at all.<br>
 </li>
 <li>Another last optimization I did inside pizza.html was to optimize the pizzeria.jpg. I resized the browser to check which is the biggest size I need for the responsive layout (it was 360x270) and then optimized this image to this size so the browser does not spend time resizing a bigger image.</li>
 </ol>
